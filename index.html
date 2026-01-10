@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Local Food Delivery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff5722;
+    }
+
+    p {
+      color: #333;
+      font-size: 15px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .customer { background: #ff5722; color: white; }
+    .restaurant { background: #4caf50; color: white; }
+    .delivery { background: #2196f3; color: white; }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🍽 Local Food</h1>
+
+    <p>
+      आमचं mission आहे —  
+       local restaurants  
+      तुमच्यापर्यंत सोप्या पद्धतीने पोहोचवणं.
+    </p>
+
+    <p>
+      तुम्ही कोण आहात?
+    </p>
+
+    <button class="btn customer" onclick="goCustomer()">👤 Customer</button>
+    <button class="btn restaurant" onclick="goRestaurant()">🏠 Restaurant / Cook</button>
+    <button class="btn delivery" onclick="goDelivery()">🛵 Delivery Partner</button>
+  </div>
+
+  <script>
+    function goCustomer() {
+      alert("Customer page coming soon...");
+      // later: window.location.href = "customer.html";
+    }
+
+    function goRestaurant() {
+      alert("Restaurant page coming soon...");
+      // later: window.location.href = "restaurant.html";
+    }
+
+    function goDelivery() {
+      alert("Delivery partner page coming soon...");
+      // later: window.location.href = "delivery.html";
+    }
+  </script>
+
+</body>
+</html>
