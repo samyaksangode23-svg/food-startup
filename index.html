@@ -2,88 +2,48 @@
 <html>
 <head>
   <title>Local Food Delivery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      color: #ff5722;
-    }
-
-    p {
-      color: #333;
-      font-size: 15px;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 15px;
-      margin: 10px 0;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .customer { background: #ff5722; color: white; }
-    .restaurant { background: #4caf50; color: white; }
-    .delivery { background: #2196f3; color: white; }
-
-    .btn:hover {
-      opacity: 0.9;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="container">
-    <h1>🍽 Local Food</h1>
+<div class="container">
+  <h1>🍽 sanghax</h1>
+  <h1>🍽 Welcome to Local Food</h1>
 
-    <p>
-      आमचं mission आहे —  
-       local restaurants  
-      तुमच्यापर्यंत सोप्या पद्धतीने पोहोचवणं.
-    </p>
+  <p>आपल्या गावासाठी जेवण आणि local food service</p>
 
-    <p>
-      तुम्ही कोण आहात?
-    </p>
+  <button onclick="goCustomer()">👤 Customer</button>
+  <button onclick="goRestaurant()">🏠 Restaurant / Cook</button>
+  <button onclick="goDelivery()">🛵 Delivery Partner</button>
+</div>
 
-    <button class="btn customer" onclick="goCustomer()">👤 Customer</button>
-    <button class="btn restaurant" onclick="goRestaurant()">🏠 Restaurant / Cook</button>
-    <button class="btn delivery" onclick="goDelivery()">🛵 Delivery Partner</button>
-  </div>
+<script>
+  function goCustomer() {
+    window.location.href = "customer.html";
+  }
+  function goRestaurant() {
+    window.location.href = "restaurant.html";
+  }
+  function goDelivery() {
+    window.location.href = "delivery.html";
+  }
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 
-  <script>
-   
-    function goCustomer() {
-      window.location.href = "customer.html";
-    }
+  const firebaseConfig = {
+    apiKey: "AIzaSyC-K4ld3mylGNeEX2xAlAmeyiNirfTVKrw",
+    authDomain: "food-startup-aa983.firebaseapp.com",
+    projectId: "food-startup-aa983",
+    storageBucket: "food-startup-aa983.firebasestorage.app",
+    messagingSenderId: "236390522518",
+    appId: "1:236390522518:web:f43e7d497443ee29456cb7",
+    measurementId: "G-TYWJGCBZZQ"
+  };
 
-    function goRestaurant() {
-      window.location.href = "restaurant.html";
-    }
-
-    function goDelivery() {
-      window.location.href = "delivery.html";
-    }
-
-
-  </script>
-
+  const app = initializeApp(firebaseConfig);
+  console.log("🔥 Firebase connected successfully");
+</script>
 </body>
 </html>
