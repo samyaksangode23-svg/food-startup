@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Sanghax</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>👑 Admin Dashboard</h2>
+
+  <p><b>Total Orders:</b> <span id="total">0</span></p>
+  <p><b>Pending:</b> <span id="pending">0</span></p>
+  <p><b>Delivered:</b> <span id="delivered">0</span></p>
+
+  <hr>
+
+  <h3>📦 All Orders</h3>
+  <div id="orders"></div>
+
+  <hr>
+
+  <h3>🍽️ Menu Items</h3>
+  <div id="menu"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+// =================== ORDERS ===================
+db.collection("orders").onSnapshot(snapshot => {
+  let html = "";
+  let total = 0, pending = 0, delivered = 0;
+
+  snapshot.forEach(doc => {
+    const o = doc.data();
+    total++;
+
+    if (o.status === "Pending") pending++;
+    if (o.status === "Delivered") delivered++;
+
+    html += `
+      <div class="order">
+        <b>${o.food}</b><br>
+        ${o.name} - ${o.mobile}<br>
+        ${o.address}<br>
+        Status: ${o.status}<br>
+        <button onclick="deleteOrder('${doc.id}')">Delete</button>
+      </div>
+    `;
+  });
+
+  orders.innerHTML = html;
+  totalSpan.innerText = total;
+  pendingSpan.innerText = pending;
+  deliveredSpan.innerText = delivered;
+});
+
+// Fix IDs
+const totalSpan = document.getElementById("total");
+const pendingSpan = document.getElementById("pending");
+const deliveredSpan = document.getElementById("delivered");
+
+function deleteOrder(id){
+  if(confirm("Delete this order?")){
+    db.collection("orders").doc(id).delete();
+  }
+}
+
+// =================== MENU ===================
+db.collection("menu").onSnapshot(snapshot => {
+  let html = "";
+
+  snapshot.forEach(doc => {
+    const m = doc.data();
+
+    html += `
+      <div class="item">
+        <img src="${m.image}" width="80"><br>
+        ${m.name} - ₹${m.price}<br>
+        <button onclick="deleteMenu('${doc.id}')">Delete</button>
+      </div>
+    `;
+  });
+
+  menu.innerHTML = html;
+});
+
+function deleteMenu(id){
+  if(confirm("Delete this item?")){
+    db.collection("menu").doc(id).delete();
+  }
+}
+</script>
+
+</body>
+</html>

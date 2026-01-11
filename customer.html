@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Customer</title>
+  <title>Customer - Sanghax</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>👤 Order Food</h1>
-  <p>Local kitchens from your area</p>
-
-  <div class="card">
-    <h3>🏠 Maa Kitchen</h3>
-    <p>Veg Thali – ₹80</p>
-    <p>Poha – ₹30</p>
-    <button>Order on WhatsApp</button>
-  </div>
-
-  <div class="card">
-    <h3>🍛 Shree Hotel</h3>
-    <p>Dal Rice – ₹60</p>
-    <p>Chapati Bhaji – ₹50</p>
-    <button>Order on WhatsApp</button>
-  </div>
-
+<div class="card">
+  <h2>🍽️ Food Menu</h2>
+  <div id="menu"></div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+db.collection("menu").onSnapshot(snapshot=>{
+  let html="";
+  snapshot.forEach(doc=>{
+    const m = doc.data();
+    html += `
+      <div class="item">
+        <img src="${m.image}" width="100">
+        <h4>${m.name}</h4>
+        ₹${m.price}<br>
+        <button onclick="order('${m.name}')">Order Now</button>
+      </div>`;
+  });
+  menu.innerHTML = html;
+});
+
+function order(food){
+  const name = prompt("Name");
+  const mobile = prompt("Mobile");
+  const address = prompt("Address");
+
+  db.collection("orders").add({
+    food,name,mobile,address,
+    status:"Pending",
+    time: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  alert("Order placed");
+}
+</script>
 </body>
 </html>

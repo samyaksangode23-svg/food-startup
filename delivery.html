@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Delivery Partner</title>
+  <title>Delivery - Sanghax</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>🛵 Become Delivery Partner</h1>
-  <p>Food delivery करून कमवा</p>
-
-  <input type="text" placeholder="Your Name">
-  <input type="text" placeholder="Mobile Number">
-  <input type="text" placeholder="Bike / Cycle">
-  <button>Join Now</button>
+<div class="card">
+  <h2>🛵 Delivery Dashboard</h2>
+  <div id="orders"></div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+db.collection("orders")
+.where("status","==","Preparing")
+.onSnapshot(snapshot=>{
+  let html="";
+  snapshot.forEach(doc=>{
+    const o = doc.data();
+    html+=`
+      <div class="order">
+        ${o.food}<br>${o.address}<br>
+        <button onclick="deliver('${doc.id}')">Mark Delivered</button>
+      </div>`;
+  });
+  orders.innerHTML=html;
+});
+
+function deliver(id){
+  db.collection("orders").doc(id).update({
+    status:"Delivered"
+  });
+}
+</script>
 </body>
 </html>

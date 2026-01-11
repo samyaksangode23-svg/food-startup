@@ -1,49 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Local Food Delivery</title>
+  <title>Sanghax</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="card">
+    <h1>SANGHAX 🍽️</h1>
+    <p>Local food delivery startup</p>
 
-<div class="container">
-  <h1>🍽 sanghax</h1>
-  <h1>🍽 Welcome to Local Food</h1>
-
-  <p>आपल्या गावासाठी जेवण आणि local food service</p>
-
-  <button onclick="goCustomer()">👤 Customer</button>
-  <button onclick="goRestaurant()">🏠 Restaurant / Cook</button>
-  <button onclick="goDelivery()">🛵 Delivery Partner</button>
-</div>
-
-<script>
-  function goCustomer() {
-    window.location.href = "customer.html";
-  }
-  function goRestaurant() {
-    window.location.href = "restaurant.html";
-  }
-  function goDelivery() {
-    window.location.href = "delivery.html";
-  }
-</script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC-K4ld3mylGNeEX2xAlAmeyiNirfTVKrw",
-    authDomain: "food-startup-aa983.firebaseapp.com",
-    projectId: "food-startup-aa983",
-    storageBucket: "food-startup-aa983.firebasestorage.app",
-    messagingSenderId: "236390522518",
-    appId: "1:236390522518:web:f43e7d497443ee29456cb7",
-    measurementId: "G-TYWJGCBZZQ"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  console.log("🔥 Firebase connected successfully");
-</script>
+    <a href="customer.html"><button>Customer</button></a>
+    <a href="restaurant.html"><button>Restaurant</button></a>
+    <a href="delivery.html"><button>Delivery Partner</button></a>
+  </div>
 </body>
 </html>

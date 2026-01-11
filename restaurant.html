@@ -1,20 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Restaurant / Cook</title>
+  <title>Restaurant - Sanghax</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>🏠 Join as Cook</h1>
-  <p>आपले जेवण विकायला आमच्याशी जोडा</p>
+<div class="card">
+  <h2>🍳 Restaurant Dashboard</h2>
 
-  <input type="text" placeholder="Kitchen / Restaurant Name">
-  <input type="text" placeholder="Mobile Number">
-  <input type="text" placeholder="Area / Village">
-  <button>Submit</button>
+  <input id="foodName" placeholder="Food Name">
+  <input id="price" placeholder="Price">
+  <input type="file" id="image">
+  <button onclick="uploadMenu()">Upload Menu</button>
+  <p id="uploadMsg"></p>
+
+  <h3>📦 Orders</h3>
+  <div id="orders"></div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+const storage = firebase.storage();
+
+function uploadMenu(){
+  const name = foodName.value;
+  const price = price.value;
+  const file = image.files[0];
+
+  const ref = storage.ref("menu/" + file.name);
+  ref.put(file).then(()=>{
+    ref.getDownloadURL().then(url=>{
+      db.collection("menu").add({
+        name, price, image: url
+      });
+      uploadMsg.innerText = "Menu uploaded";
+    });
+  });
+}
+
+db.collection("orders").orderBy("time","desc")
+.onSnapshot(snapshot=>{
+  let html = "";
+  snapshot.forEach(doc=>{
+    const o = doc.data();
+    html += `
+      <div class="order">
+        <b>${o.food}</b><br>
+        ${o.name} - ${o.mobile}<br>
+        ${o.address}<br>
+        Status: ${o.status}<br>
+        <button onclick="updateStatus('${doc.id}','Preparing')">Accept</button>
+        <button onclick="updateStatus('${doc.id}','Rejected')">Reject</button>
+      </div>`;
+  });
+  orders.innerHTML = html;
+});
+
+function updateStatus(id,status){
+  db.collection("orders").doc(id).update({status});
+}
+</script>
 </body>
 </html>
