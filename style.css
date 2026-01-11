@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ---------- RESET ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -5,60 +8,65 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Animated background */
 body {
-  height: 100vh;
-  overflow: hidden;
-  background: radial-gradient(circle at top, #ff7a18, #ff3d00);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #f8f8f8;
+  color: #1c1c1c;
 }
 
-/* Soft floating gradient */
+/* ---------- BACKGROUND ---------- */
 .bg {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(120deg, #ff7a18, #ff3d00, #ff9800);
-  animation: moveBg 12s ease infinite;
-  filter: blur(80px);
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+  z-index: -1;
 }
 
-@keyframes moveBg {
-  0% { transform: translate(-10%, -10%); }
-  50% { transform: translate(-30%, -20%); }
-  100% { transform: translate(-10%, -10%); }
+/* ---------- NAVBAR ---------- */
+.navbar {
+  background: white;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
+.logo {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #e23744;
+}
+
+/* ---------- CONTAINER ---------- */
 .container {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 420px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
-/* Glassmorphism card */
+/* ---------- CARD ---------- */
 .card {
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 36px 26px;
+  background: white;
+  padding: 40px;
+  max-width: 420px;
+  width: 100%;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
   text-align: center;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-  color: #fff;
 }
 
-/* Fade animation */
+/* ---------- ANIMATION ---------- */
 .fade-in {
-  animation: fadeIn 1.2s ease forwards;
+  animation: fade 1s ease forwards;
 }
 
-@keyframes fadeIn {
+@keyframes fade {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -66,37 +74,36 @@ body {
   }
 }
 
-.logo {
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  margin-bottom: 14px;
-}
-
+/* ---------- TEXT ---------- */
 .greeting {
+  margin-top: 15px;
   font-size: 20px;
-  margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .description {
-  font-size: 14px;
-  line-height: 1.7;
-  margin-bottom: 22px;
-  opacity: 0.95;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
 }
 
 .description span {
-  font-weight: 600;
+  display: block;
+  margin-top: 6px;
+  font-weight: 500;
+  color: #000;
 }
 
 .question {
+  margin-top: 25px;
   font-size: 16px;
   font-weight: 500;
-  margin-bottom: 18px;
 }
 
-/* Buttons */
+/* ---------- BUTTONS ---------- */
 .buttons {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -106,22 +113,39 @@ body {
   text-decoration: none;
   padding: 14px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  font-size: 15px;
+  background: #e23744;
+  color: white;
   font-weight: 500;
-  transition: 0.35s ease;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: 0.3s;
 }
 
 .btn:hover {
-  background: #ffffff;
-  color: #ff3d00;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: #c61f32;
+  transform: scale(1.03);
 }
 
-.status.Pending { color: #ffd54f; }
-.status.Preparing { color: #4caf50; }
-.status.Rejected { color: #ff5252; }
-.status.Delivered { color: #03a9f4; }
+/* ---------- DASHBOARD ---------- */
+.dashboard-card {
+  max-width: 1100px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ---------- MENU / ORDER ---------- */
+.item, .order {
+  background: #fafafa;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item img {
+  border-radius: 10px;
+  margin-right: 15px;
+}
