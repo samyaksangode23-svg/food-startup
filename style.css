@@ -1,34 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Animated background */
 body {
-  font-family: Arial;
-  background: #f5f5f5;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #ff7a18, #ff3d00);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  max-width: 500px;
-  margin: 30px auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
+/* Soft floating gradient */
+.bg {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, #ff7a18, #ff3d00, #ff9800);
+  animation: moveBg 12s ease infinite;
+  filter: blur(80px);
 }
 
-button {
-  padding: 8px 15px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
+@keyframes moveBg {
+  0% { transform: translate(-10%, -10%); }
+  50% { transform: translate(-30%, -20%); }
+  100% { transform: translate(-10%, -10%); }
 }
 
-input {
+.container {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  padding: 8px;
-  margin: 5px;
+  max-width: 420px;
+  padding: 20px;
 }
 
-.item, .order {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
+/* Glassmorphism card */
+.card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 36px 26px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  color: #fff;
 }
+
+/* Fade animation */
+.fade-in {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  margin-bottom: 14px;
+}
+
+.greeting {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+  opacity: 0.95;
+}
+
+.description span {
+  font-weight: 600;
+}
+
+.question {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.35s ease;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.btn:hover {
+  background: #ffffff;
+  color: #ff3d00;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.status.Pending { color: #ffd54f; }
+.status.Preparing { color: #4caf50; }
+.status.Rejected { color: #ff5252; }
+.status.Delivered { color: #03a9f4; }

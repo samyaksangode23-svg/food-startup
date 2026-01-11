@@ -22,18 +22,20 @@ db.collection("orders")
   let html="";
   snapshot.forEach(doc=>{
     const o = doc.data();
-    html+=`
+    html += `
       <div class="order">
-        ${o.food}<br>${o.address}<br>
-        <button onclick="deliver('${doc.id}')">Mark Delivered</button>
-      </div>`;
+        <b>${o.food}</b><br>
+        ${o.address}<br>
+        <button onclick="pick('${doc.id}')">Pick Order</button>
+      </div>
+    `;
   });
-  orders.innerHTML=html;
+  orders.innerHTML = html;
 });
 
-function deliver(id){
+function pick(id){
   db.collection("orders").doc(id).update({
-    status:"Delivered"
+    status:"Out for Delivery"
   });
 }
 </script>

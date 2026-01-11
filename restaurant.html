@@ -5,18 +5,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<body>
 
-<div class="card">
-  <h2>🍳 Restaurant Dashboard</h2>
+<div class="app">
+  <header class="topbar">
+    <h1>SANGHX</h1>
+    <span class="role">Restaurant</span>
+  </header>
 
-  <input id="foodName" placeholder="Food Name">
-  <input id="price" placeholder="Price">
-  <input type="file" id="image">
-  <button onclick="uploadMenu()">Upload Menu</button>
-  <p id="uploadMsg"></p>
+  <main class="content">
+    <div class="card">
+      <h2>🍳 Restaurant Dashboard</h2>
 
-  <h3>📦 Orders</h3>
-  <div id="orders"></div>
+      <input id="foodName" placeholder="Food Name">
+      <input id="price" placeholder="Price">
+      <input type="file" id="image">
+      <button onclick="uploadMenu()">Upload Menu</button>
+      <p id="uploadMsg"></p>
+
+      <h3>📦 Orders</h3>
+      <div id="orders"></div>
+    </div>
+  </main>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -25,6 +35,19 @@
 <script src="firebase.js"></script>
 
 <script>
+  firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "index.html";
+  } else {
+    db.collection("users").doc(user.uid).get().then(doc => {
+      if (!doc.exists || doc.data().role !== "restaurant") {
+        alert("Access denied");
+        window.location.href = "index.html";
+      }
+    });
+  }
+});
+
 const storage = firebase.storage();
 
 function uploadMenu(){
@@ -43,7 +66,9 @@ function uploadMenu(){
   });
 }
 
-db.collection("orders").orderBy("time","desc")
+db.collection("orders")
+.where("status","==","Pending")
+.orderBy("time","desc")
 .onSnapshot(snapshot=>{
   let html = "";
   snapshot.forEach(doc=>{
@@ -53,7 +78,7 @@ db.collection("orders").orderBy("time","desc")
         <b>${o.food}</b><br>
         ${o.name} - ${o.mobile}<br>
         ${o.address}<br>
-        Status: ${o.status}<br>
+        Status: <span class="status ${o.status}">${o.status}</span><br>
         <button onclick="updateStatus('${doc.id}','Preparing')">Accept</button>
         <button onclick="updateStatus('${doc.id}','Rejected')">Reject</button>
       </div>`;

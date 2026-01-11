@@ -29,6 +29,19 @@
 <script src="firebase.js"></script>
 
 <script>
+  firebase.auth().onAuthStateChanged(user=>{
+  if(!user){
+    location.href="index.html";
+  } else {
+    db.collection("users").doc(user.uid).get().then(doc=>{
+      if(doc.data().role !== "admin"){
+        alert("Not admin");
+        location.href="index.html";
+      }
+    });
+  }
+});
+
 // =================== ORDERS ===================
 db.collection("orders").onSnapshot(snapshot => {
   let html = "";
