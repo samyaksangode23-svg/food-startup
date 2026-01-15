@@ -51,19 +51,36 @@
 const storage = firebase.storage();
 
 function uploadMenu(){
-  const name = foodName.value;
-  const price = price.value;
-  const file = image.files[0];
+  const name = document.getElementById("foodName").value;
+  const cost = document.getElementById("price").value;
+  const file = document.getElementById("image").files[0];
 
-  const ref = storage.ref("menu/" + file.name);
-  ref.put(file).then(()=>{
-    ref.getDownloadURL().then(url=>{
-      db.collection("menu").add({
-        name, price, image: url
+  if(!name || !cost || !file){
+    alert("Fill all fields");
+    return;
+  }
+
+  const storageRef = firebase.storage().ref("menu/" + Date.now() + "_" + file.name);
+
+  storageRef.put(file)
+    .then(() => storageRef.getDownloadURL())
+    .then(url => {
+      return db.collection("menu").add({
+        name: name,
+        price: cost,
+        image: url
       });
-      uploadMsg.innerText = "Menu uploaded";
+    })
+    .then(() => {
+      document.getElementById("uploadMsg").innerText = "✅ Menu uploaded successfully";
+      document.getElementById("foodName").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("image").value = "";
+    })
+    .catch(err => {
+      alert("Error: " + err.message);
+      console.error(err);
     });
-  });
 }
 
 db.collection("orders")

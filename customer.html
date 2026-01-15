@@ -1,49 +1,525 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Customer - Sanghax</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SANGHAX Food</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* PAGE STYLE */
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+}
+
+/* SLIDER */
+.food-slider {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 12px;
+}
+
+.food-slider::-webkit-scrollbar {
+  display: none; /* clean like Zomato */
+}
+
+.food-slider img {
+  flex: 0 0 85%;
+  max-width: 85%;
+  height: 180px;
+  border-radius: 16px;
+  object-fit: cover;
+  scroll-snap-align: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .slider{
+    height:200px;
+  }
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #fff7f5;
+  color: #1c1c1c;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #e23744, #ff5a5f);
+  color: white;
+  padding: 16px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* SEARCH BAR */
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+}
+
+.search-icon {
+  position: absolute;
+  left: calc(55% - 170px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.search-bar {
+  width: 80%;
+  max-width: 340px;
+  /* left: calc(55% - 170px); */
+  padding: 12px 14px 12px 38px;
+  border-radius: 50px;
+  border: none;
+  font-size: 14px; 
+  
+  outline: none;
+  background-color: white;
+  box-shadow: 0 0 0 2px rgb(0, 0, 0);
+}
+
+
+
+/* CONTAINER */
+.container {
+  padding: 16px;
+  padding-bottom: 180px;
+}
+
+/* MENU GRID */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* BUTTON */
+button {
+  background: linear-gradient(135deg, #ff7a18, #ff9f45);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* CART BAR */
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #eee;
+  padding: 14px;
+  font-size: 14px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+}
+
+/* CART ITEMS */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
+}
+
+/* QTY */
+.qty button {
+  padding: 2px 10px;
+  font-size: 14px;
+}
+
+/* ORDER NOW */
+.checkout-btn {
+  background: linear-gradient(135deg, #25D366, #1ebe5d);
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  font-weight: 600;
+  border-radius: 14px;
+  font-size: 16px;
+}
+
+/* FLOATING WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  top: 69px;
+  right: 18px;
+  background: #25D366;
+  color: white;
+  font-size: 20px;
+  padding: 12px 16px;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+/* MOBILE FEEL */
+h3 {
+  margin-top: 0;
+  font-weight: 600;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.modal-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-box input,
+.modal-box textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.modal-box button {
+  background: #25D366;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+</style>
 </head>
 <body>
 
-<div class="card">
-  <h2>🍽️ Food Menu</h2>
-  <div id="menu"></div>
+  
+  <div class="header">🍽 SANGHX</div>
+  <!-- Search bar -->
+  <div class="notice-bar">
+  <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Search food..." class="search-bar">
+  </div>
+</div>
+  <a href="https://wa.me/918087762813?text=Hey,%20I’m%20facing%20some%20issues%20related%20to%20your%20site.%20Please%20help%20me."
+  target="_blank"
+  class="whatsapp-float
+  ">
+  💬
+  </a>
+
+  <div class="food-slider">
+  
+    <img src="bread.png">
+    <img src="images .png">
+    <img src="pizza.png">
+    <!-- <img src="jj.png" alt="Food 4>
+    <img src="french.png" alt="Food 5">
+    <img src="images .png" alt="Food 6"> -->
+  
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+<div class="container">
+  <h3>Menu</h3>
+  <div class="menu" id="menu"></div>
+</div>
+
+<div class="cart-bar">
+  <div id="cartItems"></div>
+  <div>Subtotal: ₹<span id="subtotal">0</span></div>
+  <div>Delivery: ₹<span id="delivery">25</span></div>
+  <div><b>Total: ₹<span id="total">0</span></b></div>
+  <button class="checkout-btn" onclick="checkout()">Order Now</button>
+</div>
 
 <script>
-db.collection("menu").onSnapshot(snapshot=>{
-  let html="";
-  snapshot.forEach(doc=>{
-    const m = doc.data();
-    html += `
-      <div class="item">
-        <img src="${m.image}" width="100">
-        <h4>${m.name}</h4>
-        ₹${m.price}<br>
-        <button onclick="order('${m.name}')">Order Now</button>
-      </div>`;
-  });
-  menu.innerHTML = html;
-});
+  const slides = document.getElementById("slides");
+let index = 0;
 
-function order(food){
-  const name = prompt("Name");
-  const mobile = prompt("Mobile");
-  const address = prompt("Address");
+function slideMove(){
+  index++;
+  slides.style.transition = "0.50s ease-in-out";
+  slides.style.transform = `translateX(-${index * 100}%)`;
 
-  db.collection("orders").add({
-    food,name,mobile,address,
-    status:"Pending",
-    time: firebase.firestore.FieldValue.serverTimestamp()
-  });
-
-  alert("Order placed");
+  // Reset smoothly
+  if(index === 3){
+    setTimeout(()=>{
+      slides.style.transition = "none";
+      slides.style.transform = "translateX(0)";
+      index = 0;
+    }, 700);
+  }
 }
+
+
+  let userLocation = "";
+
+const DELIVERY_CHARGE = 25;
+
+let cart = [];
+let menu = JSON.parse(localStorage.getItem("menu")) || [];
+
+const menuDiv = document.getElementById("menu");
+
+function renderMenu(){
+  menuDiv.innerHTML="";
+  menu.forEach(item=>{
+    menuDiv.innerHTML += `
+      <div class="card">
+        <img src="${item.img}">
+        <div class="card-content">
+          <b>${item.name}</b>
+          <div class="row">
+            ₹${item.price}
+            <button onclick="addItem('${item.name}',${item.price})">Add</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function addItem(name,price){
+  const found = cart.find(i=>i.name===name);
+  if(found){
+    found.qty++;
+  } else {
+    cart.push({name,price,qty:1});
+  }
+  renderCart();
+}
+
+function changeQty(name,delta){
+  const item = cart.find(i=>i.name===name);
+  if(!item) return;
+
+  item.qty += delta;
+  if(item.qty <= 0){
+    cart = cart.filter(i=>i.name!==name);
+  }
+  renderCart();
+}
+
+function renderCart(){
+  const cartDiv = document.getElementById("cartItems");
+  cartDiv.innerHTML="";
+
+  cart.forEach(item=>{
+    cartDiv.innerHTML += `
+      <div class="cart-item">
+        ${item.name} ₹${item.price*item.qty}
+        <div class="qty">
+          <button onclick="changeQty('${item.name}',-1)">-</button>
+          ${item.qty}
+          <button onclick="changeQty('${item.name}',1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  let subtotal = cart.reduce((t,i)=>t+i.price*i.qty,0);
+  document.getElementById("subtotal").innerText = subtotal;
+  document.getElementById("delivery").innerText = cart.length ? DELIVERY_CHARGE : 0;
+  document.getElementById("total").innerText = subtotal + (cart.length ? DELIVERY_CHARGE : 0);
+}
+function checkout(){
+  if(cart.length === 0){
+    alert("Cart is empty");
+    return;
+  }
+  document.getElementById("orderModal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("orderModal").style.display = "none";
+}
+
+function sendWhatsAppOrder() {
+  const name = document.getElementById("custName").value;
+  const mobile = document.getElementById("custMobile").value;
+  const address = document.getElementById("custAddress").value;
+
+  if (!name || !mobile || !address) {
+    alert("Please fill all details");
+    return;
+  }
+
+  if (!userLocation) {
+    alert("Please share live location before sending order");
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+
+  let itemsText = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.qty;
+    itemsText += `• ${item.name} x${item.qty} = ₹${itemTotal}\n`;
+    total += itemTotal;
+  });
+
+  total += DELIVERY_CHARGE;
+
+  let message = `
+🛒 *New Order – SANGHX*
+
+👤 Name: ${name}
+📞 Mobile: ${mobile}
+🏠 Address: ${address}
+
+📦 Order Details:
+${itemsText}
+
+🚚 Delivery Charge: ₹${DELIVERY_CHARGE}
+💰 Total Amount: ₹${total}
+
+📍 Live Location:
+${userLocation}
+`;
+
+  const phone = "918087762813"; // your WhatsApp number
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
+
+  closeModal();
+  cart = [];
+  renderCart();
+}
+
+  // Function to get user location
+ function getLocation() {
+  if (!navigator.geolocation) {
+    alert("Location not supported on this device");
+    return;
+  }
+
+  document.getElementById("locationStatus").innerText = "Getting location...";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      userLocation = `https://maps.google.com/?q=${lat},${lng}`;
+
+      document.getElementById("locationStatus").innerText =
+        "✅ Location added successfully";
+    },
+    () => {
+      alert("Location permission denied");
+    }
+  );
+}
+
+
+renderMenu();
+window.addEventListener("storage",renderMenu);
 </script>
+<div id="orderModal" class="modal">
+  <div class="modal-box">
+    <h3>Confirm Your Order</h3>
+
+    <input id="custName" placeholder="Your Name">
+    <input id="custMobile" placeholder="Mobile Number">
+    <textarea id="custAddress" placeholder="Delivery Address"></textarea>
+    <button onclick="getLocation()" style="background:#000;">
+    📍Share Live Location
+    </button>
+
+    <p id="locationStatus" style="font-size:12px;color:green;text-align:center;"></p>
+    
+     
+
+    <button onclick="sendWhatsAppOrder()">Send Order on WhatsApp</button>
+    <p onclick="closeModal()" style="text-align:center;cursor:pointer;color:#999;">Cancel</p>
+  </div>
+</div>
 </body>
 </html>
